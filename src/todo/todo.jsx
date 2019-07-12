@@ -5,7 +5,7 @@ import PageHeader from '../template/pageHeader'
 import TodoForm from '../todo/todoForm'
 import TodoList from '../todo/todoList'
 
-const URL = 'http://localhost:3003/api/todos'
+const URL = 'https://antonio-todo-api.herokuapp.com/api/todos'
 
 export default class Todo extends Component {
     constructor(props){
