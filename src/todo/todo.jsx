@@ -10,26 +10,31 @@ const URL = 'https://antonio-todo-api.herokuapp.com/api/todos'
 export default class Todo extends Component {
     constructor(props){
         super(props)
+
         this.state = { description: '', list: [] }
 
         this.handleAdd = this.handleAdd.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleRemove = this.handleRemove.bind(this)
         this.handleMarkAsDone = this.handleMarkAsDone.bind(this)
-        this.handleMarkAsPending = this.handleMarkAsPending.bind(this)
+        this.handleSearch = this.handleSearch.bind(this)
+        this.handleClear = this.handleClear.bind(this)
 
         this.refresh();
     }
 
-    refresh() {
-        axios.get(`${URL}?sort=-createdAt`)
-            .then(resp => this.setState({ ...this.state, description: '', list: resp.data }))
+    refresh(description = '') {
+        const search = description ? `&description__regex=/${description}/` : ''
+
+        axios.get(`${URL}?sort=-createdAt${search}`)
+            .then(resp => this.setState({ ...this.state, description, list: resp.data }))
     }
 
-    handleAdd() {
-        //console.log(this.state.description)   
-        const description = this.state.description
+    handleSearch() {
+        this.refresh(this.state.description)
+    }
 
+    handleAdd() {        
         // axios({
         //     method: 'post',
         //     url: 'http://localhost:3003/api/todos',
@@ -37,9 +42,14 @@ export default class Todo extends Component {
         //       description: 'Fred'              
         //     }
         //   });
+                
+        const description = this.state.description
 
         axios.post(URL, { description })
             .then(resp => this.refresh())
+            .catch(function(error){
+                console.log('Mensagem de erro para tratar: ' + error)
+        })
     }
 
     handleChange(e) {
@@ -48,31 +58,31 @@ export default class Todo extends Component {
 
     handleRemove(todo){
         axios.delete(`${URL}/${todo._id}`)
-            .then(resp => this.refresh())
+            .then(resp => this.refresh(this.state.description))
     }
 
-    handleMarkAsDone(todo){
-        axios.put(`${URL}/${todo._id}`, { ...todo, done: true} )
-            .then(resp => this.refresh())
+    handleMarkAsDone(todo, marked){
+        axios.put(`${URL}/${todo._id}`, { ...todo, done: marked} )
+            .then(resp => this.refresh(this.state.description))
     }
 
-    handleMarkAsPending(todo){
-        axios.put(`${URL}/${todo._id}`, { ...todo, done: false} )
-            .then(resp => this.refresh())
+    handleClear() {
+        this.refresh();
     }
 
     render () {
         return (
             <div>
-                <PageHeader name='Tarefas' small='Cadastro'></PageHeader>
+                <PageHeader name='Cadastro de tarefas'></PageHeader>
                 <TodoForm 
                     description={this.state.description}
                     handleChange={this.handleChange}
-                    handleAdd={this.handleAdd} />
+                    handleAdd={this.handleAdd}
+                    handleSearch={this.handleSearch}
+                    handleClear={this.handleClear} />
                 <TodoList 
                     list={this.state.list} 
                     handleRemove={this.handleRemove}
-                    handleMarkAsPending={this.handleMarkAsPending}
                     handleMarkAsDone={this.handleMarkAsDone}/>
             </div>
         )
