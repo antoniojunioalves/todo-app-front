@@ -4,8 +4,10 @@ import axios from 'axios'
 import PageHeader from '../template/pageHeader'
 import TodoForm from '../todo/todoForm'
 import TodoList from '../todo/todoList'
-
-const URL = 'https://antonio-todo-api.herokuapp.com/api/todos'
+// const URL = 'http://localhost:3003/api/todos'
+const URL = process.env = 'prod' ?  
+    'https://antonio-todo-api.herokuapp.com/api/todos':
+    'http://localhost:3003/api/todos'
 
 export default class Todo extends Component {
     constructor(props){
@@ -44,7 +46,7 @@ export default class Todo extends Component {
         //   });
                 
         const description = this.state.description
-
+        console.log(URL)
         axios.post(URL, { description })
             .then(resp => this.refresh())
             .catch(function(error){
