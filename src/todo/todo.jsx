@@ -4,10 +4,10 @@ import axios from 'axios'
 import PageHeader from '../template/pageHeader'
 import TodoForm from '../todo/todoForm'
 import TodoList from '../todo/todoList'
-// const URL = 'http://localhost:3003/api/todos'
-const URL = process.env = 'prod' ?  
-    'https://antonio-todo-api.herokuapp.com/api/todos':
-    'http://localhost:3003/api/todos'
+const URL = 'http://localhost:3003/api/todos'
+// const URL = process.env = 'prod' ?  
+//     'https://antonio-todo-api.herokuapp.com/api/todos':
+//     'http://localhost:3003/api/todos'
 
 export default class Todo extends Component {
     constructor(props){
@@ -77,16 +77,14 @@ export default class Todo extends Component {
             <div>
                 <PageHeader name='Cadastro de tarefas'></PageHeader>
                 <TodoForm 
-                    description={this.state.description}
                     handleChange={this.handleChange}
                     handleAdd={this.handleAdd}
                     handleSearch={this.handleSearch}
                     handleClear={this.handleClear} />
                 <TodoList 
-                    list={this.state.list} 
                     handleRemove={this.handleRemove}
                     handleMarkAsDone={this.handleMarkAsDone}/>
             </div>
         )
     }
-}
+} 
