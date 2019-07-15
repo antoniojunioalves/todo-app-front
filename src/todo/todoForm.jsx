@@ -21,10 +21,7 @@ const TodoForm = props => {
                     className='form-control'
                     placeholder='Adicione uma tarefa'
                     // onChange={props.handleChange}
-                    onChange={() => { 
-                        // props.changeComponente(event.target.value)
-                        // console.log(event.target.value)
-                    }}
+                    onChange={(event) => props.changeComponente(event.target.value)}
                     value={props.description}
                     onKeyUp={keyHandler}
                 ></input>

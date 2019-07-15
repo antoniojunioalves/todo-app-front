@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 const initialState = {
-    description: "Ler Livro 2",
+    description: "Ler Livro 2 A",
     list: [{
         _id: 1,
         description: "Atividade 1",
@@ -42,13 +42,10 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type){
-        case 'ADD_TASK':
-            return{
-                description: [ ...state, description: action.payload]
-            }
         case 'DESCRIPTION_CHANGE':
-            return{
-                description: [ ...state, description: action.payload]
+            return {  
+                ...state, 
+                description: action.payload   
             }
         default:
             return state
