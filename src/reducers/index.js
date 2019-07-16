@@ -42,13 +42,19 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type){
-        case 'ADD_TASK':
-            return{
-                description: [ ...state, description: action.payload]
-            }
         case 'DESCRIPTION_CHANGE':
             return{
-                description: [ ...state, description: action.payload]
+                ...state, 
+                description: action.payload
+            }
+        case 'BUSCAR_DADOS':
+            return{
+                ...state,
+                list: action.payload.data
+            }
+        case 'ADD_DESCRIPTION':
+            return{
+                ...state
             }
         default:
             return state
