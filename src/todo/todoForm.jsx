@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Grid from '../template/grid'
 import IconButton from '../template/iconButton'
 import { connect } from 'react-redux'
-import { changeDescription, buscarDados, addDescription } from '../actions'
+import { change, search, addTask, clear } from '../actions'
 
 
  class TodoForm extends Component {
@@ -11,18 +11,21 @@ import { changeDescription, buscarDados, addDescription } from '../actions'
         this.keyHandler = this.keyHandler.bind(this)
     }
 
-
     keyHandler(e) {
         if (e.key === 'Enter') {
-            e.shiftKey ? this.props.handleSearch() : this.props.handleAdd()
+            e.shiftKey ? this.props.search(this.props.description) : this.props.addTask(this.props.description)
         } else if (e.key === 'Escape') {
-            this.props.handleClear()
+            this.props.clear()
         }        
     } 
-    render () {
-        const desc = this.props.description
-        const add = this.props.handleAdd
 
+    componentDidMount(){
+        this.props.search()
+    }
+
+    render () {
+        const { change, addTask, search, clear } = this.props
+        const { description } = this.props
         return (
             <div role='form' className='todoForm todoFormGrid'>
                 <Grid cols='12 9 10'>
@@ -30,9 +33,8 @@ import { changeDescription, buscarDados, addDescription } from '../actions'
                         id='description' 
                         className='form-control'
                         placeholder='Adicione uma tarefa'
-                        // onChange={props.handleChange}
-                        onChange={(event) => this.props.changeComponente(event.target.value)}
-                        value={this.props.description}
+                        onChange={(event) => change(event.target.value)}
+                        value={description}
                         onKeyUp={this.keyHandler}
                     ></input>
                 </Grid>
@@ -41,18 +43,17 @@ import { changeDescription, buscarDados, addDescription } from '../actions'
                     <IconButton 
                         style='primary' 
                         icon='plus'
-                    onClick={() => {this.props.addDescription(this.props.description)}}
-                    //onClick={() => {console.log(this.props.description)}}
+                    onClick={() => {addTask(description)}}
                     ></IconButton>
                     <IconButton
                         style='info'
                         icon='search'
-                        onClick={() => this.props.buscarDados()}
+                        onClick={() => search(description)}
                     ></IconButton>
                     <IconButton
                         style='default'
                         icon='close'
-                        onClick={this.props.handleClear}
+                        onClick={() => clear()}
                     ></IconButton>
                 </Grid>
             </div>
@@ -63,9 +64,10 @@ import { changeDescription, buscarDados, addDescription } from '../actions'
 const mapStateToProps = state => ({ description: state.description })
 
 const mapDispatchToProps = dispatch => ({ 
-    changeComponente: (description) => dispatch(changeDescription(description)),
-    buscarDados: () => dispatch(buscarDados()),
-    addDescription: (description) => dispatch(addDescription(description))
+    change: (description) => dispatch(change(description)),
+    addTask: (description) => dispatch(addTask(description)),
+    search: (description) => dispatch(search(description)),
+    clear: () => dispatch(clear())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoForm)

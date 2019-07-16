@@ -15,47 +15,8 @@ export default class Todo extends Component {
 
         this.state = { description: '', list: [] }
 
-        this.handleAdd = this.handleAdd.bind(this)
-        this.handleChange = this.handleChange.bind(this)
         this.handleRemove = this.handleRemove.bind(this)
         this.handleMarkAsDone = this.handleMarkAsDone.bind(this)
-        this.handleSearch = this.handleSearch.bind(this)
-        this.handleClear = this.handleClear.bind(this)
-
-        this.refresh();
-    }
-
-    refresh(description = '') {
-        const search = description ? `&description__regex=/${description}/` : ''
-
-        axios.get(`${URL}?sort=-createdAt${search}`)
-            .then(resp => this.setState({ ...this.state, description, list: resp.data }))
-    }
-
-    handleSearch() {
-        this.refresh(this.state.description)
-    }
-
-    handleAdd() {        
-        // axios({
-        //     method: 'post',
-        //     url: 'http://localhost:3003/api/todos',
-        //     data: {
-        //       description: 'Fred'              
-        //     }
-        //   });
-                
-        const description = this.state.description
-        
-        axios.post(URL, { description })
-            .then(resp => this.refresh())
-            .catch(function(error){
-                console.log('Mensagem de erro para tratar: ' + error)
-        })
-    }
-
-    handleChange(e) {
-        this.setState({ ...this.state, description: e.target.value })
     }
 
     handleRemove(todo){
@@ -68,19 +29,11 @@ export default class Todo extends Component {
             .then(resp => this.refresh(this.state.description))
     }
 
-    handleClear() {
-        this.refresh();
-    }
-
     render () {
         return (
             <div>
                 <PageHeader name='Cadastro de tarefas'></PageHeader>
-                <TodoForm 
-                    handleChange={this.handleChange}
-                    handleAdd={this.handleAdd}
-                    handleSearch={this.handleSearch}
-                    handleClear={this.handleClear} />
+                <TodoForm />
                 <TodoList 
                     handleRemove={this.handleRemove}
                     handleMarkAsDone={this.handleMarkAsDone}/>

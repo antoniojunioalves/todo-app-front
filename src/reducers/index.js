@@ -1,44 +1,23 @@
 import { combineReducers } from 'redux'
 
-const initialState = {
-    description: "Ler Livro 2",
-    list: [{
-        _id: 1,
-        description: "Atividade 1",
-        done: false
-    }, {
-        _id: 2,
-        description: "Atividade 2",
-        done: true
-    }, {
-        _id: 3,
-        description: "Atividade 3",
-        done: false
-    }]
-}
-
-// const rootReducer = combineReducers({
-//     todo: () => ({
-//         description: "Ler Livro 2",
-//         list: [{
-//             _id: 1,
-//             description: "Atividade 1",
-//             done: false
-//         }, {
-//             _id: 2,
-//             description: "Atividade 2",
-//             done: true
-//         }, {
-//             _id: 3,
-//             description: "Atividade 3",
-//             done: false
-//         }
-
-//         ]
-
-//     })
-// })
-
+const initialState = { description: '', list: [] }
+// Exemplo de initialState.
+// const initialState = {
+//     description: "Ler Livro 2",
+//     list: [{
+//         _id: 1,
+//         description: "Atividade 1",
+//         done: false
+//     }, {
+//         _id: 2,
+//         description: "Atividade 2",
+//         done: true
+//     }, {
+//         _id: 3,
+//         description: "Atividade 3",
+//         done: false
+//     }]
+// }
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type){
@@ -54,7 +33,13 @@ const rootReducer = (state = initialState, action) => {
             }
         case 'ADD_DESCRIPTION':
             return{
-                ...state
+                ...state,
+                list: [action.payload.data, ...state.list]
+            }
+        case 'CLEAR':
+            return{
+                ...state,
+                description: action.payload
             }
         default:
             return state
