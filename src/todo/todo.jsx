@@ -46,7 +46,7 @@ export default class Todo extends Component {
         //   });
                 
         const description = this.state.description
-        console.log(URL)
+        
         axios.post(URL, { description })
             .then(resp => this.refresh())
             .catch(function(error){
