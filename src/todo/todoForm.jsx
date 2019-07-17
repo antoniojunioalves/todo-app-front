@@ -4,7 +4,6 @@ import IconButton from '../template/iconButton'
 import { connect } from 'react-redux'
 import { change, search, addTask, clear } from '../actions'
 
-
  class TodoForm extends Component {
     constructor(props){
         super(props)

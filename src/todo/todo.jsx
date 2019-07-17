@@ -14,19 +14,6 @@ export default class Todo extends Component {
         super(props)
 
         this.state = { description: '', list: [] }
-
-        this.handleRemove = this.handleRemove.bind(this)
-        this.handleMarkAsDone = this.handleMarkAsDone.bind(this)
-    }
-
-    handleRemove(todo){
-        axios.delete(`${URL}/${todo._id}`)
-            .then(resp => this.refresh(this.state.description))
-    }
-
-    handleMarkAsDone(todo, marked){
-        axios.put(`${URL}/${todo._id}`, { ...todo, done: marked} )
-            .then(resp => this.refresh(this.state.description))
     }
 
     render () {
@@ -34,9 +21,7 @@ export default class Todo extends Component {
             <div>
                 <PageHeader name='Cadastro de tarefas'></PageHeader>
                 <TodoForm />
-                <TodoList 
-                    handleRemove={this.handleRemove}
-                    handleMarkAsDone={this.handleMarkAsDone}/>
+                <TodoList />
             </div>
         )
     }

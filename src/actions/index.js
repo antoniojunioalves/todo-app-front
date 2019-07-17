@@ -5,6 +5,8 @@ const URL = 'http://localhost:3003/api/todos'
 //     'https://antonio-todo-api.herokuapp.com/api/todos':
 //     'http://localhost:3003/api/todos'
 
+
+//////////////// ACTIONS todoForm
 export const change = (description) => ({
     type: 'DESCRIPTION_CHANGE',
     payload: description
@@ -25,17 +27,28 @@ export const search = (description) => {
 }
 
 export const addTask = (description) => {
-    // axios({
-    //     method: 'POST',
-    //     url: 'http://localhost:3003/api/todos',
-    //     data: {
-    //         description: description           
-    //     }
-    // });   
-    console.log(description) 
     const request = axios.post(URL, { description })
     return {
         type: 'ADD_DESCRIPTION',
         payload: request
+    }
+}
+
+//////////////// ACTIONS todoList
+export const deleteTodo = (todo) => {
+    axios.delete(`${URL}/${todo._id}`)
+
+    return {
+        type: 'DELETE_TODO',
+        payload: todo
+    }
+}
+
+export const markDone = (todo, marked) => {
+    const newTodo = { ...todo, done: marked }
+    axios.put(`${URL}/${todo._id}`,  newTodo)
+    return{
+        type: 'MARK_DONE',
+        payload: newTodo
     }
 }

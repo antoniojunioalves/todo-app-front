@@ -1,6 +1,5 @@
-import { combineReducers } from 'redux'
-
 const initialState = { description: '', list: [] }
+
 // Exemplo de initialState.
 // const initialState = {
 //     description: "Ler Livro 2",
@@ -36,11 +35,22 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 list: [action.payload.data, ...state.list]
             }
-        case 'CLEAR':
-            return{
-                ...state,
-                description: action.payload
+            case 'CLEAR':
+                return{
+                    ...state,
+                    description: action.payload
             }
+            case 'DELETE_TODO':
+                return{
+                    ...state,
+                    list: [ ...state.list.filter(todo => todo._id !== action.payload._id) ]
+            }  
+            case 'MARK_DONE':
+                return{
+                    ...state,
+                    list: [ ...state.list.map(todo => todo._id === action.payload._id ? { ...todo, done: action.payload.done } : todo)]
+            }          
+
         default:
             return state
     }
