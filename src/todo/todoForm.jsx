@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import Grid from '../template/grid'
 import IconButton from '../template/iconButton'
-import { connect } from 'react-redux'
 import { change, search, addTask, clear } from '../actions'
 
  class TodoForm extends Component {

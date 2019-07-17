@@ -1,10 +1,8 @@
 import axios from 'axios'
 
-const URL = 'http://localhost:3003/api/todos'
-// const URL = process.env = 'prod' ?  
-//     'https://antonio-todo-api.herokuapp.com/api/todos':
-//     'http://localhost:3003/api/todos'
-
+const URL = process.env === 'production' ?  
+    'https://antonio-todo-api.herokuapp.com/api/todos':
+    'http://localhost:3003/api/todos'
 
 //////////////// ACTIONS todoForm
 export const change = (description) => ({
