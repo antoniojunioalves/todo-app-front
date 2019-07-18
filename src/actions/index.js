@@ -1,8 +1,11 @@
 import axios from 'axios'
 
-const URL = process.env === 'production' ?  
-    'https://antonio-todo-api.herokuapp.com/api/todos':
-    'http://localhost:3003/api/todos'
+const { NODE_ENV } = process.env
+export const URL = NODE_ENV !== 'production' ? 'http://localhost:3003/api/todos' : 'https://antonio-todo-api.herokuapp.com/api/todos'
+
+// const URL = process.env === 'production' ?  
+//     'https://antonio-todo-api.herokuapp.com/api/todos':
+//     'http://localhost:3003/api/todos'
 
 //////////////// ACTIONS todoForm
 export const change = (description) => ({
