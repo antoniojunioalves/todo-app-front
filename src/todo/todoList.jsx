@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import IconButton from '../template/iconButton'
-import { deleteTodo, markDone } from '../actions'
+import { deleteTodo, markDone } from '../actions/todoList'
 
 const TodoList = props => {
     const renderRows = () => {

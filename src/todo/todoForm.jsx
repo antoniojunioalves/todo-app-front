@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Grid from '../template/grid'
 import IconButton from '../template/iconButton'
-import { change, search, addTask, clear } from '../actions'
+import { change, search, addTask, clear } from '../actions/todoForm'
 
  class TodoForm extends Component {
     constructor(props){
