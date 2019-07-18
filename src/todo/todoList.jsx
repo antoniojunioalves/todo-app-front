@@ -2,12 +2,25 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import IconButton from '../template/iconButton'
-import { deleteTodo, markDone } from '../actions'
+import { deleteTodo, markDone } from '../actions/todoList'
 
 const TodoList = props => {
+    const { loading, error } = props
+
+    const compLoading = () => (
+        <tr>
+            <td>Loading...</td>
+        </tr>
+    )
+
+    const compError = () => (
+        <tr>
+            <td>ERRO!</td>
+        </tr>
+    )
+
     const renderRows = () => {
         const list = props.list || []
-        
         return list.map(todo => (
             <tr key={todo._id}>
                 <td className={todo.done ? 'markedAsDone' : ''}>{todo.description}</td>
@@ -40,13 +53,24 @@ const TodoList = props => {
                 </tr>
             </thead>
             <tbody>
-                {renderRows()}
+                {console.log(error)}
+                {
+                    
+                    error ? 
+                        compError() : 
+                        loading ?
+                            compLoading() : renderRows()
+                }
             </tbody>
         </table>
     )
 }
 
-const mapStateToProps = state => ({list: state.list})
+const mapStateToProps = state => ({
+    list: state.list,
+    loading: state.loading,
+    error: state.error    
+})
 
 const mapDispatchToProps = dispatch => ({
     deleteTodo: (todo) => dispatch(deleteTodo(todo)),
