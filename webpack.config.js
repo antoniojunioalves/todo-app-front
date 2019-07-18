@@ -6,10 +6,11 @@ module.exports = {
     output: {
         path: __dirname + '/public',
         filename: './app.js'
+
     },
     devServer: {
         port: 8080,
-        contentBase: './src'
+        contentBase: './public'
     },
     resolve: {
         extensions: ['', '.js', '.jsx'],
