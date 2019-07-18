@@ -11,8 +11,7 @@ export const change = (description) => ({
 })
 
 export const clear = () =>({
-    type: 'CLEAR',
-    payload: ''
+    type: 'CLEAR'
 })
 
 export const search = (description) => {

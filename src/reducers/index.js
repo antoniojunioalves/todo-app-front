@@ -1,4 +1,7 @@
-const initialState = { description: '', list: [] }
+const initialState = { 
+    description: '', 
+    list: [] 
+}
 
 // Exemplo de initialState.
 // const initialState = {
@@ -38,7 +41,7 @@ const rootReducer = (state = initialState, action) => {
             case 'CLEAR':
                 return{
                     ...state,
-                    description: action.payload
+                    description: ''
             }
             case 'DELETE_TODO':
                 return{
