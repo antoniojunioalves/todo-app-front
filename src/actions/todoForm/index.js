@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 import { urlApi } from '../index'
 
 export const change = (description) => ({
@@ -57,7 +55,7 @@ export const addTask = (description) => (dispatch) => {
 
         return response.json()
     })
-    .then(response => {dispatch(search())})
+    .then(() => {dispatch(search())})
     .catch((response) => console.log(response))
     // .catch(() => dispatch(addTaskError()))
 }

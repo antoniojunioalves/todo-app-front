@@ -53,9 +53,7 @@ const TodoList = props => {
                 </tr>
             </thead>
             <tbody>
-                {console.log(error)}
                 {
-                    
                     error ? 
                         compError() : 
                         loading ?
